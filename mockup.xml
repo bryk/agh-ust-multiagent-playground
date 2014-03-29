@@ -1,0 +1,374 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1114" measuredH="2555" mockupW="848" mockupH="2547">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::iPhone" x="409" y="8" w="300" h="612" measuredW="282" measuredH="573" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="__group__" x="447" y="184" w="224" h="215" measuredW="224" measuredH="215" zOrder="1" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="224" h="215" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="40"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::ScratchOut" x="12" y="14" w="200" h="187" measuredW="205" measuredH="107" zOrder="1" locked="false" isInGroup="40"/>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::PointyButton" x="447" y="148" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::PointyButton" x="474" y="414" w="170" h="-1" measuredW="99" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>center</direction>
+        <menuIcon>false</menuIcon>
+        <newLayout>true</newLayout>
+        <text>Wykonaj%20ruch</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::SubTitle" x="497" y="121" w="-1" h="-1" measuredW="124" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rozgrywka</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::PointyButton" x="777" y="148" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::SubTitle" x="827" y="121" w="-1" h="-1" measuredW="124" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Rozgrywka</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::iPhoneMenu" x="765" y="122" w="215" h="-1" measuredW="215" measuredH="263" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <text>__%20Menu%0A_%20Lista%20gier%0A_%20Twoje%20gry%0A_%20Stw%F3rz%20gr%u0119%0A_%20Tw%F3j%20profil%0A_%20Ustawienia%0A%20%0AO%20autorach</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="__group__" x="739" y="8" w="300" h="612" measuredW="300" measuredH="612" zOrder="6" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="0" w="300" h="612" measuredW="282" measuredH="573" zOrder="0" locked="false" isInGroup="50">
+          <controlProperties>
+            <model>IPhone5</model>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="38" y="176" w="224" h="215" measuredW="224" measuredH="215" zOrder="1" locked="false" isInGroup="50">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="224" h="215" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="1"/>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::ScratchOut" x="12" y="14" w="200" h="187" measuredW="205" measuredH="107" zOrder="1" locked="false" isInGroup="1"/>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::PointyButton" x="65" y="406" w="170" h="-1" measuredW="99" measuredH="27" zOrder="2" locked="false" isInGroup="50">
+          <controlProperties>
+            <borderStyle>square</borderStyle>
+            <direction>center</direction>
+            <menuIcon>false</menuIcon>
+            <newLayout>true</newLayout>
+            <text>Wykonaj%20ruch</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::StickyNote" x="266" y="386" w="148" h="118" measuredW="109" measuredH="123" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Wizualizacja%20danej%20rozgrywki%0A%28np.%20szachownica%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Arrow" x="345" y="279" w="112" h="114" measuredW="150" measuredH="100" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <curvature>1</curvature>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::StickyNote" x="966" y="358" w="148" h="118" measuredW="109" measuredH="123" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Menu%20wysuwaj%u0105ce%20si%u0119%20z%20boku.%20Dost%u0119pne%20w%20ka%u017Cdym%20widoku.</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Arrow" x="933" y="257" w="112" h="114" measuredW="150" measuredH="100" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <curvature>1</curvature>
+        <direction>top</direction>
+        <leftArrow>true</leftArrow>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::iPhone" x="409" y="655" w="300" h="612" measuredW="282" measuredH="573" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::PointyButton" x="447" y="795" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::SubTitle" x="497" y="768" w="-1" h="-1" measuredW="104" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Lista%20gier</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::DataGrid" x="443" y="875" w="231" h="284" measuredW="231" measuredH="321" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gra%20%5E%2C%20Tw%F3rca%20%5Ev%2C%20Status%0AKalambury%2C%20bryk%2C%20trwaj%u0105ca%0ASzachy%2C%20mtorba%2C%20trwaj%u0105ca%0AStatki%2C%20pmateja%2C%20zako%u0144czona%0ASzachy%2C%20bryk%2C%20wstrzymana%0ASzachy%2C%20mtorba%2C%20trwaj%u0105ca%0AStatki%2C%20pmateja%2C%20zako%u0144czona%0ASzachy%2C%20bryk%2C%20wstrzymana%0ASzachy%2C%20mtorba%2C%20trwaj%u0105ca%0AStatki%2C%20pmateja%2C%20zako%u0144czona%0ASzachy%2C%20bryk%2C%20wstrzymana</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::iPhone" x="739" y="662" w="300" h="612" measuredW="282" measuredH="573" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::PointyButton" x="777" y="802" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::SubTitle" x="827" y="775" w="-1" h="-1" measuredW="107" measuredH="27" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Twoje%20gry</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::DataGrid" x="773" y="875" w="231" h="291" measuredW="163" measuredH="321" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gra%20%5E%2C%20Status%0AKalambury%2C%20trwaj%u0105ca%0ASzachy%2C%20trwaj%u0105ca%0AStatki%2C%20zako%u0144czona%0ASzachy%2C%20wstrzymana%0ASzachy%2C%20trwaj%u0105ca%0AStatki%2C%20zako%u0144czona%0ASzachy%2C%20wstrzymana%0ASzachy%2C%20trwaj%u0105ca%0AStatki%2C%20zako%u0144czona%0ASzachy%2C%20wstrzymana</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::iPhone" x="399" y="1297" w="300" h="612" measuredW="282" measuredH="573" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::PointyButton" x="437" y="1437" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::SubTitle" x="487" y="1410" w="-1" h="-1" measuredW="127" measuredH="27" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Stw%F3rz%20gr%u0119</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::ComboBox" x="524" y="1491" w="118" h="-1" measuredW="74" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Szachy</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Label" x="494" y="1493" w="-1" h="-1" measuredW="25" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Typ%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Label" x="443" y="1540" w="-1" h="-1" measuredW="76" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Widoczno%u015B%u0107%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::ComboBox" x="524" y="1538" w="118" h="-1" measuredW="87" measuredH="24" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Publiczna</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Label" x="477" y="1596" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::ComboBox" x="524" y="1594" w="118" h="-1" measuredW="86" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Trwaj%u0105ca</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::PointyButton" x="464" y="1703" w="170" h="-1" measuredW="64" measuredH="27" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>center</direction>
+        <menuIcon>false</menuIcon>
+        <newLayout>true</newLayout>
+        <text>Stw%F3rz</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::TextInput" x="524" y="1649" w="118" h="-1" measuredW="86" measuredH="27" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>AGH%20szachy</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="com.balsamiq.mockups::Label" x="477" y="1652" w="-1" h="-1" measuredW="43" measuredH="21" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nazwa%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::SearchBox" x="446" y="838" w="225" h="-1" measuredW="120" measuredH="25" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Szukaj%20gry...</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::SearchBox" x="777" y="838" w="225" h="-1" measuredW="120" measuredH="25" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Szukaj%20gry...</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::iPhone" x="739" y="1297" w="300" h="612" measuredW="282" measuredH="573" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="com.balsamiq.mockups::PointyButton" x="777" y="1437" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="com.balsamiq.mockups::SubTitle" x="827" y="1410" w="-1" h="-1" measuredW="106" measuredH="27" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Twoja%20gra</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="834" y="1493" w="-1" h="-1" measuredW="73" measuredH="21" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Typ%3A%20*Szachy*</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="783" y="1540" w="-1" h="-1" measuredW="76" measuredH="21" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Widoczno%u015B%u0107%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::ComboBox" x="864" y="1538" w="118" h="-1" measuredW="87" measuredH="24" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Publiczna</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Label" x="817" y="1596" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::ComboBox" x="864" y="1594" w="118" h="-1" measuredW="107" measuredH="24" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Wstrzymana</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::PointyButton" x="804" y="1703" w="170" h="-1" measuredW="75" measuredH="27" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>center</direction>
+        <menuIcon>false</menuIcon>
+        <newLayout>true</newLayout>
+        <text>Usu%u0144%20gr%u0119</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::TextInput" x="864" y="1649" w="118" h="-1" measuredW="86" measuredH="27" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>AGH%20szachy</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::Label" x="817" y="1652" w="-1" h="-1" measuredW="43" measuredH="21" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nazwa%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::iPhone" x="399" y="1943" w="300" h="612" measuredW="282" measuredH="573" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::PointyButton" x="437" y="2083" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::SubTitle" x="487" y="2056" w="-1" h="-1" measuredW="111" measuredH="27" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Statystyki</text>
+      </controlProperties>
+    </control>
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::DataGrid" x="434" y="2132" w="231" h="284" measuredW="191" measuredH="261" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Gracz%20%5E%2C%20Punkty%20%5Ev%2C%20Kraj%0Abryk%2C%202332%2C%20Polska%0Amtorba%2C%205432%2C%20Polska%0Apmateja%2C%2012%2C%20USA%0Ajan%2C%2043%2C%20UK%0ASweete23%2C%20689%2C%20Chiny%0AAndrzej91%2C%205893%2C%20Polska%0Anike%2C%20543%2C%20Polska%0Apuma%2C%204355%2C%20RPA</text>
+      </controlProperties>
+    </control>
+    <control controlID="99" controlTypeID="com.balsamiq.mockups::iPhone" x="739" y="1943" w="300" h="612" measuredW="282" measuredH="573" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="100" controlTypeID="com.balsamiq.mockups::PointyButton" x="777" y="2083" w="-1" h="-1" measuredW="62" measuredH="27" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>left</direction>
+        <newLayout>true</newLayout>
+        <text>Menu</text>
+      </controlProperties>
+    </control>
+    <control controlID="101" controlTypeID="com.balsamiq.mockups::SubTitle" x="827" y="2056" w="-1" h="-1" measuredW="113" measuredH="27" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tw%F3j%20profil</text>
+      </controlProperties>
+    </control>
+    <control controlID="103" controlTypeID="com.balsamiq.mockups::Label" x="804" y="2132" w="-1" h="-1" measuredW="43" measuredH="21" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nazwa%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="111" controlTypeID="com.balsamiq.mockups::TextInput" x="847" y="2129" w="92" h="-1" measuredW="41" measuredH="27" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>bryk</text>
+      </controlProperties>
+    </control>
+    <control controlID="112" controlTypeID="com.balsamiq.mockups::Label" x="817" y="2179" w="-1" h="-1" measuredW="32" measuredH="21" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>P%u0142e%u0107%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::ComboBox" x="847" y="2177" w="118" h="-1" measuredW="100" measuredH="24" zOrder="56" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>M%u0119%u017Cczyzna</text>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="com.balsamiq.mockups::Label" x="812" y="2224" w="-1" h="-1" measuredW="32" measuredH="21" zOrder="57" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Wiek%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::TextInput" x="847" y="2221" w="92" h="-1" measuredW="30" measuredH="27" zOrder="58" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>54</text>
+      </controlProperties>
+    </control>
+    <control controlID="116" controlTypeID="com.balsamiq.mockups::PointyButton" x="795" y="2301" w="170" h="-1" measuredW="61" measuredH="27" zOrder="59" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <direction>center</direction>
+        <menuIcon>false</menuIcon>
+        <newLayout>true</newLayout>
+        <text>Zapisz</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
