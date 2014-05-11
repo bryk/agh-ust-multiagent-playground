@@ -5,6 +5,11 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="lib/jade.jar"/>
+	<classpathentry kind="lib" path="libs/JadeAndroid.jar"/>
+	<classpathentry kind="lib" path="libs/guava-17.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/multiagent-playground/libs/guava-17.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
