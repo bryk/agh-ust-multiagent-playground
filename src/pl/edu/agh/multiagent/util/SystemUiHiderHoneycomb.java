@@ -1,4 +1,4 @@
-package pl.edu.agh.multiagent_playground.util;
+package pl.edu.agh.multiagent.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

@@ -1,6 +1,6 @@
-package pl.edu.agh.multiagent_playground;
+package pl.edu.agh.multiagent;
 
-import pl.edu.agh.multiagent_playground.util.SystemUiHider;
+import pl.edu.agh.multiagent.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
