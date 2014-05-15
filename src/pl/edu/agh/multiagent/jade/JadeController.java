@@ -1,5 +1,7 @@
 package pl.edu.agh.multiagent.jade;
 
+import pl.edu.agh.multiagent.api.AgentJoinedMessage;
+
 import com.google.common.base.Preconditions;
 
 import jade.android.AndroidHelper;
@@ -8,6 +10,9 @@ import jade.android.MicroRuntimeServiceBinder;
 import jade.android.RuntimeCallback;
 import jade.core.MicroRuntime;
 import jade.core.Profile;
+import jade.domain.AMSService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import jade.util.leap.Properties;
 import jade.wrapper.AgentController;
 import jade.wrapper.ControllerException;
@@ -119,6 +124,15 @@ public class JadeController {
 		} else {
 			Log.e(TAG, "Jade container already started");
 			callback.onSuccess(null);
+		}
+	}
+
+	public void broadcast(GameAgent agent, AgentJoinedMessage msg) {
+		// TODO(bryk): Implement this.
+		try {
+			AMSService.search(agent, new AMSAgentDescription());
+		} catch (FIPAException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
