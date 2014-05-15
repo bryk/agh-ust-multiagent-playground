@@ -127,7 +127,7 @@ public class JadeController {
 		}
 	}
 
-	public void broadcast(GameAgent agent, AgentJoinedMessage msg) {
+	public void broadcast(GameAgent agent, Object msg) {
 		// TODO(bryk): Implement this.
 		try {
 			AMSService.search(agent, new AMSAgentDescription());

@@ -1,6 +1,7 @@
 package pl.edu.agh.multiagent.jade;
 
 import pl.edu.agh.multiagent.api.AgentInfo;
+import pl.edu.agh.multiagent.api.AgentJoinedMessage;
 import pl.edu.agh.multiagent.api.GameMoveMessage;
 import pl.edu.agh.multiagent.api.GameStateAnnounceMessage;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class GameAgent extends Agent {
 	}
 
 	/** Called when new agent has joined. */
-	void onAgentJoined(Agent agent) {
+	void onAgentJoined(AgentJoinedMessage agent) {
 	}
 
 	/** Called when game state is announced. */

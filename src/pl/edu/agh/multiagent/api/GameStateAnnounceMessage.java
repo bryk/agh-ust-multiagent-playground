@@ -6,17 +6,26 @@ public class GameStateAnnounceMessage implements Serializable {
 	public static final String JADE_NAME = "GameStateAnnounceMessage";
 	private static final long serialVersionUID = 1L;
 	private AgentInfo agent;
+	private GameState gameState;
 
-	@Override
-	public String toString() {
-		return "AgentJoinedMessage [agent=" + agent + "]";
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
 	}
 
 	public AgentInfo getAgent() {
 		return agent;
 	}
 
-	public void setAgent(AgentInfo agent) {
+	public void setAgentInfo(AgentInfo agent) {
 		this.agent = agent;
+	}
+
+	@Override
+	public String toString() {
+		return "GameStateAnnounceMessage [agent=" + agent + ", gameState=" + gameState + "]";
 	}
 }
