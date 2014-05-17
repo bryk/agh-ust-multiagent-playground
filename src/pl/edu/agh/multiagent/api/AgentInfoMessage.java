@@ -2,7 +2,7 @@ package pl.edu.agh.multiagent.api;
 
 import java.io.Serializable;
 
-public class AgentJoinedMessage implements Serializable {
+public class AgentInfoMessage implements Serializable {
 	public static final String JADE_NAME = "AgentJoinedMessage";
 	private static final long serialVersionUID = 1L;
 	private AgentInfo agent;
@@ -12,7 +12,7 @@ public class AgentJoinedMessage implements Serializable {
 		return "AgentJoinedMessage [agent=" + agent + "]";
 	}
 
-	public AgentInfo getAgent() {
+	public AgentInfo getAgentInfo() {
 		return agent;
 	}
 

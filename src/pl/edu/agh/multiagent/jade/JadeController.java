@@ -1,18 +1,11 @@
 package pl.edu.agh.multiagent.jade;
 
-import pl.edu.agh.multiagent.api.AgentJoinedMessage;
-
-import com.google.common.base.Preconditions;
-
 import jade.android.AndroidHelper;
 import jade.android.MicroRuntimeService;
 import jade.android.MicroRuntimeServiceBinder;
 import jade.android.RuntimeCallback;
 import jade.core.MicroRuntime;
 import jade.core.Profile;
-import jade.domain.AMSService;
-import jade.domain.FIPAException;
-import jade.domain.FIPAAgentManagement.AMSAgentDescription;
 import jade.util.leap.Properties;
 import jade.wrapper.AgentController;
 import jade.wrapper.ControllerException;
@@ -23,6 +16,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.google.common.base.Preconditions;
 
 /**
  * Controller for Jade related operations (such as connecting, creating agents).
@@ -87,7 +82,7 @@ public class JadeController {
 				new RuntimeCallback<Void>() {
 					@Override
 					public void onSuccess(Void thisIsNull) {
-						Log.i(TAG, "Successfully start of the " + GameAgent.class.getName() + "...");
+						Log.i(TAG, "Successful start of the " + GameAgent.class.getName() + "...");
 						try {
 							agentStartupCallback.onSuccess(MicroRuntime.getAgent(name));
 						} catch (ControllerException e) {
@@ -124,15 +119,6 @@ public class JadeController {
 		} else {
 			Log.e(TAG, "Jade container already started");
 			callback.onSuccess(null);
-		}
-	}
-
-	public void broadcast(GameAgent agent, Object msg) {
-		// TODO(bryk): Implement this.
-		try {
-			AMSService.search(agent, new AMSAgentDescription());
-		} catch (FIPAException e) {
-			throw new RuntimeException(e);
 		}
 	}
 }
