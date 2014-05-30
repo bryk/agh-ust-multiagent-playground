@@ -9,12 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e. status bar and
- * navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
- */
 public class FullscreenActivity extends Activity implements OnClickListener {
 	private static final String TAG = "FullscreenActivity";
 	
