@@ -39,6 +39,7 @@ public class GameAgent extends Agent implements GameAgentInterface {
 	private Map<String, Long> agentTimestamps = new LinkedHashMap<String, Long>();
 	private Map<String, Long> gameTimestamps = new LinkedHashMap<String, Long>();
 	private CyclicBehaviour cyclic;
+	private GameAgentListener gameAgentListener;
 
 	public GameAgent() {
 		registerO2AInterface(GameAgentInterface.class, this);
@@ -101,18 +102,6 @@ public class GameAgent extends Agent implements GameAgentInterface {
 		Log.i(tag, "Taking down game agent");
 	}
 
-	/** Called when agent info is announced. */
-	void onAgentInfoAnnounce(AgentInfoMessage agent) {
-	}
-
-	/** Called when game state is announced. */
-	void onGameStateAnnounce(GameStateAnnounceMessage gameStateAnnounceMessage) {
-	}
-
-	/** Called when somebody wants to make a move. */
-	void onGameMove(GameMoveMessage gameMoveMessage) {
-	}
-
 	@Override
 	public AgentInfo getAgentInfo() {
 		return agentInfo;
@@ -143,21 +132,35 @@ public class GameAgent extends Agent implements GameAgentInterface {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	protected synchronized void processObjMessage(Serializable obj, long timestamp) {
 		if (obj instanceof GameStateAnnounceMessage) {
 			processGameState((GameStateAnnounceMessage) obj, timestamp);
-			onGameStateAnnounce((GameStateAnnounceMessage) obj);
+			if (gameAgentListener != null) {
+				gameAgentListener.onGameStateAnnounce((GameStateAnnounceMessage) obj);
+			}
 		} else if (obj instanceof AgentInfoMessage) {
 			processAgentInfo((AgentInfoMessage) obj, timestamp);
-			onAgentInfoAnnounce((AgentInfoMessage) obj);
+			if (gameAgentListener != null) {
+				gameAgentListener.onAgentInfoAnnounce((AgentInfoMessage) obj);
+			}
 		} else if (obj instanceof GameMoveMessage) {
-			onGameMove((GameMoveMessage) obj);
+			if (gameAgentListener != null) {
+				gameAgentListener.onGameMove((GameMoveMessage) obj);
+			}
 		} else {
 			throw new IllegalArgumentException("Cannot categorize message: " + obj);
 		}
 	}
 
+	public GameAgentListener getGameAgentListener() {
+		return gameAgentListener;
+	}
+
+	public void setGameAgentListener(GameAgentListener gameAgentListener) {
+		this.gameAgentListener = gameAgentListener;
+	}
+	
 	@Override
 	public void createGame(GameState gameState) {
 		Log.d(tag, "Creating game: " + gameState);
