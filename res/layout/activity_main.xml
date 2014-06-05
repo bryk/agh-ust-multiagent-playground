@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0099cc"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#0099cc"
     tools:context=".MainActivity" >
 
     <LinearLayout
@@ -22,23 +22,24 @@
             android:id="@+id/startNewGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start new game"
-            android:onClick="startGame" />
+            android:onClick="startGame"
+            android:text="Start new game" />
+
         <Button
             android:id="@+id/enterGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter game in progress"
-            android:onClick="browseGames" />
+            android:onClick="browseGames"
+            android:text="Enter game in progress" />
+
         <Button
             android:id="@+id/myGamesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Games"
-            android:onClick="myGames" />
-
+            android:onClick="myGames"
+            android:text="My Games" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/gameLayout"
         android:layout_width="match_parent"
@@ -47,15 +48,87 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:orientation="vertical" >
-        
-        <TextView
-                android:id="@+id/test1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test1" />
-        
-        </LinearLayout>
-        
+
+        <TableLayout
+            android:id="@+id/board"
+            android:layout_height="wrap_content"
+    		android:layout_width="wrap_content"
+    		android:stretchColumns="*" >
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/board0x0"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board0x1"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board0x2"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+            </TableRow>
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/board1x0"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board1x1"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board1x2"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+            </TableRow>
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/board2x0"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board2x1"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+
+                <ImageButton
+                    android:id="@+id/board2x2"
+                    android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:padding="2dip" 
+                    android:onClick="boardClick"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/gameFinder"
         android:layout_width="match_parent"
@@ -64,15 +137,14 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:orientation="vertical" >
-        
+
         <TextView
-                android:id="@+id/test2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test2" />
-        
-        </LinearLayout>
-        
+            android:id="@+id/test2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test2" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/myGames"
         android:layout_width="match_parent"
@@ -81,13 +153,12 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:orientation="vertical" >
-        
+
         <TextView
-                android:id="@+id/test3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Test3" />
-        
-        </LinearLayout>
+            android:id="@+id/test3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test3" />
+    </LinearLayout>
 
 </RelativeLayout>

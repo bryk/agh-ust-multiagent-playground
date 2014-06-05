@@ -25,6 +25,11 @@ public class GameState implements Serializable {
 		gameState.name = name;
 		gameState.moveResoultionStrategy = moveResoultionStrategy;
 		gameState.cells = new Cell[3][3];
+		for(int i=0;i<3;i++){
+			for(int j=0;j<3;j++){
+				gameState.cells[i][j] = Cell.NOTHING;
+			}
+		}
 		return gameState;
 	}
 
@@ -71,6 +76,10 @@ public class GameState implements Serializable {
 
 	public AgentInfo getOwner() {
 		return owner;
+	}
+	
+	public int getMoveNumber() {
+		return moveNumber;
 	}
 
 	@Override

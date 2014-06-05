@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
 	private LinearLayout gameFinderLayout;
 	
 	private LinearLayout myGamesLayout;
+	
+	private Board currentBoard;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
 		gameLayout = (LinearLayout) findViewById(R.id.gameLayout);
 		gameFinderLayout = (LinearLayout) findViewById(R.id.gameFinder);
 		myGamesLayout = (LinearLayout) findViewById(R.id.myGames);
+		
 		
 		menuLayout.setVisibility(View.VISIBLE);
 		gameLayout.setVisibility(View.GONE);
@@ -125,9 +128,13 @@ public class MainActivity extends Activity {
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						agent.createGame(GameState.newGameState(gameNameView.getText().toString(), MoveResoultionStrategy.valueOf(choiceSpinner.getSelectedItem().toString()), agent.getAgentInfo()));
-						//TODO move to game view
+						GameState state = GameState.newGameState(gameNameView.getText().toString(), MoveResoultionStrategy.valueOf(choiceSpinner.getSelectedItem().toString()), agent.getAgentInfo());
+						agent.createGame(state);
+						
 						switchLayout(gameLayout);
+						initGameFromState(state);
+						
+						
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -166,5 +173,21 @@ public class MainActivity extends Activity {
 	    else{
 	    	switchLayout(menuLayout);
 	    }
+	}
+	
+	@Override
+	public void onDestroy(){
+		//TODO clean agent? stop container? stop service? dunno
+		super.onDestroy();
+	}
+	
+	private void initGameFromState(GameState state){
+		Log.w(TAG, "null check");
+		Log.w(TAG,findViewById(R.id.board).toString());
+		currentBoard = new Board(findViewById(R.id.board), agent, state);
+	}
+	
+	public void boardClick(View v){
+		currentBoard.click(v);
 	}
 }
