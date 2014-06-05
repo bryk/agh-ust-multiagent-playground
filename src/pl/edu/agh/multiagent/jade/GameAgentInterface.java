@@ -28,5 +28,7 @@ public interface GameAgentInterface {
 	public abstract Collection<AgentInfo> getAllAgents();
 
 	public abstract Collection<GameState> getAllActiveGames();
+	
+	public abstract Collection<GameState> getMyGames();
 
 }

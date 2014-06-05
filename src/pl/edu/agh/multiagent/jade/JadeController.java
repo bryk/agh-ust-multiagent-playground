@@ -36,10 +36,10 @@ public class JadeController {
 	private final Properties jadeConfiguration = new Properties();
 
 	/** {@link Activity} that works on this controller. */
-	private final Activity mainAppActivity;
+	private final Context mainAppActivity;
 
 	/** Creates controller. On emulator use address: 10.0.2.2:1099. */
-	public JadeController(String host, String port, Activity mainAppActivity) {
+	public JadeController(String host, String port, Context mainAppActivity) {
 		jadeConfiguration.setProperty(Profile.MAIN_HOST, host);
 		jadeConfiguration.setProperty(Profile.MAIN_PORT, port);
 		jadeConfiguration.setProperty(Profile.MAIN, Boolean.FALSE.toString());
@@ -101,6 +101,7 @@ public class JadeController {
 
 	/** Starts Jade container. */
 	private void startJadeContainer(final RuntimeCallback<Void> callback) {
+		Log.i(TAG, "Trying to start container");
 		if (!MicroRuntime.isRunning()) {
 			microRuntimeServiceBinder.startAgentContainer(jadeConfiguration,
 					new RuntimeCallback<Void>() {

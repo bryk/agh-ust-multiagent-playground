@@ -15,12 +15,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,17 +32,38 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 
 	private JadeController jadeController;
+	
+	private GameAgentInterface agent;
+	
+	private LinearLayout menuLayout;
+	
+	private LinearLayout gameLayout;
+	
+	private LinearLayout gameFinderLayout;
+	
+	private LinearLayout myGamesLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		menuLayout = (LinearLayout) findViewById(R.id.mainFormLayout);
+		gameLayout = (LinearLayout) findViewById(R.id.gameLayout);
+		gameFinderLayout = (LinearLayout) findViewById(R.id.gameFinder);
+		myGamesLayout = (LinearLayout) findViewById(R.id.myGames);
+		
+		menuLayout.setVisibility(View.VISIBLE);
+		gameLayout.setVisibility(View.GONE);
+		gameFinderLayout.setVisibility(View.GONE);
+		myGamesLayout.setVisibility(View.GONE);
+		
 		Intent i = getIntent();
 		jadeController = new JadeController(i.getStringExtra("host"),
-				i.getStringExtra("port"), this);
+				i.getStringExtra("port"), getApplicationContext());
 		jadeController.startJadeRuntimeService(new RuntimeCallback<Void>() {
 			@Override
 			public void onSuccess(Void arg0) {
+				Log.w(TAG, "Success 1");
 				jadeController
 						.startGameAgent(new RuntimeCallback<AgentController>() {
 							@Override
@@ -49,12 +73,7 @@ public class MainActivity extends Activity {
 									GameAgentInterface agent = arg0
 											.getO2AInterface(GameAgentInterface.class);
 									if (agent != null) {
-										GameState gameState = GameState
-												.newGameState(
-														"Gra Piotrka",
-														MoveResoultionStrategy.FIFO,
-														agent.getAgentInfo());
-										agent.createGame(gameState);
+										MainActivity.this.agent = agent;
 									} else {
 										Log.i(TAG, "Agent O2A is null");
 									}
@@ -106,8 +125,9 @@ public class MainActivity extends Activity {
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						Log.w(TAG, "Yay, he agreed!");
-						Log.w(TAG,gameNameView.getText().toString());
+						agent.createGame(GameState.newGameState(gameNameView.getText().toString(), MoveResoultionStrategy.valueOf(choiceSpinner.getSelectedItem().toString()), agent.getAgentInfo()));
+						//TODO move to game view
+						switchLayout(gameLayout);
 					}
 				})
 				.setNegativeButton("Cancel",
@@ -128,5 +148,23 @@ public class MainActivity extends Activity {
 	public void myGames(View view) {
 		Log.w(TAG, "My Games click");
 
+	}
+	
+	private void switchLayout(LinearLayout l){
+		menuLayout.setVisibility(View.GONE);
+		gameLayout.setVisibility(View.GONE);
+		gameFinderLayout.setVisibility(View.GONE);
+		myGamesLayout.setVisibility(View.GONE);
+		l.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public void onBackPressed() {
+	    if(menuLayout.getVisibility() == View.VISIBLE){
+	    	super.onBackPressed();
+	    }
+	    else{
+	    	switchLayout(menuLayout);
+	    }
 	}
 }

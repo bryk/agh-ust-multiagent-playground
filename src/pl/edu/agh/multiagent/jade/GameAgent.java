@@ -85,7 +85,7 @@ public class GameAgent extends Agent implements GameAgentInterface {
 
 			@Override
 			public void action() {
-				if (System.currentTimeMillis() - 1000 > lastCyclic) {
+				if (System.currentTimeMillis() - 10000 > lastCyclic) {
 					gc();
 					broadcastAllInfo();
 					lastCyclic = System.currentTimeMillis();
@@ -253,5 +253,10 @@ public class GameAgent extends Agent implements GameAgentInterface {
 		for (GameState gameState : myGames.values()) {
 			updateGameState(gameState);
 		}
+	}
+
+	@Override
+	public Collection<GameState> getMyGames() {
+		return this.myGames.values();
 	}
 }
