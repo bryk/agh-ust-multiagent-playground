@@ -8,26 +8,32 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import pl.edu.agh.multiagent.api.GameState;
 import pl.edu.agh.multiagent.api.MoveResoultionStrategy;
+import pl.edu.agh.multiagent.api.State;
 import pl.edu.agh.multiagent.jade.GameAgentInterface;
 import pl.edu.agh.multiagent.jade.JadeController;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = "MainActivity";
 
@@ -148,13 +154,61 @@ public class MainActivity extends Activity {
 	}
 
 	public void browseGames(View view) {
-		Log.w(TAG, "Browse click");
+		switchLayout(gameFinderLayout);
+		TableLayout table = (TableLayout) findViewById(R.id.otherGamesTable);
+		table.removeAllViews();
+		addHeader(table);
+		for(GameState s :agent.getAllActiveGames()){
+			if(s.getState().equals(State.OPEN)){
+				table.addView(new MyTableRow(this, s, this));
+			}
+		}
 
 	}
 
 	public void myGames(View view) {
-		Log.w(TAG, "My Games click");
+		switchLayout(gameFinderLayout);
+		TableLayout table = (TableLayout) findViewById(R.id.otherGamesTable);
+		table.removeAllViews();
+		addHeader(table);
+		for(GameState s :agent.getMyGames()){
+			if(s.getState().equals(State.OPEN)){
+				table.addView(new MyTableRow(this, s, this));
+			}
+		}
 
+	}
+	
+	private void addHeader(TableLayout table) {
+		TableRow row = new TableRow(this);
+		
+		String owner = "Game owner";
+		TextView ownerView = new TextView(this);
+		ownerView.setText(owner);
+		row.addView(ownerView);
+		
+		String gameName = "Game name";
+		TextView nameView = new TextView(this);
+		nameView.setText(gameName);
+		row.addView(nameView);
+		
+		String whose = "Move";
+		TextView whoseView = new TextView(this);
+		whoseView.setText(whose);
+		row.addView(whoseView);
+		
+		String moveNumber = "Move number";
+		TextView moveView = new TextView(this);
+		moveView.setText(moveNumber);
+		row.addView(moveView);
+		
+		table.addView(row);
+		
+		View line = new View(this);
+		line.setBackgroundColor(Color.BLACK);
+		line.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, 1));
+		
+		table.addView(line);
 	}
 	
 	private void switchLayout(LinearLayout l){
@@ -177,17 +231,26 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onDestroy(){
-		//TODO clean agent? stop container? stop service? dunno
+		//TODO clean agent? stop container? stop service? nothing? dunno
 		super.onDestroy();
 	}
 	
 	private void initGameFromState(GameState state){
-		Log.w(TAG, "null check");
-		Log.w(TAG,findViewById(R.id.board).toString());
 		currentBoard = new Board(findViewById(R.id.board), agent, state);
 	}
 	
 	public void boardClick(View v){
 		currentBoard.click(v);
+	}
+
+	
+	/**
+	 * use only for choosing game row
+	 */
+	@Override
+	public void onClick(View v) {
+		switchLayout(gameLayout);
+		initGameFromState(((MyTableRow) v).getState());
+		
 	}
 }

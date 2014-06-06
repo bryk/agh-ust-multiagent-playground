@@ -62,10 +62,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int moveResolutionSpinner=0x7f09001b;
         public static final int myGames=0x7f090017;
         public static final int myGamesButton=0x7f090009;
+        public static final int myGamesTable=0x7f090018;
+        public static final int otherGamesTable=0x7f090016;
         public static final int portFormText=0x7f090005;
         public static final int startNewGameButton=0x7f090007;
-        public static final int test2=0x7f090016;
-        public static final int test3=0x7f090018;
         public static final int textView1=0x7f090002;
     }
     public static final class layout {

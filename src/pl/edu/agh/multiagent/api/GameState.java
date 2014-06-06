@@ -25,6 +25,7 @@ public class GameState implements Serializable {
 		gameState.name = name;
 		gameState.moveResoultionStrategy = moveResoultionStrategy;
 		gameState.cells = new Cell[3][3];
+		gameState.state = State.OPEN;
 		for(int i=0;i<3;i++){
 			for(int j=0;j<3;j++){
 				gameState.cells[i][j] = Cell.NOTHING;
