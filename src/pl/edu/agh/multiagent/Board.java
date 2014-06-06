@@ -88,6 +88,10 @@ public class Board {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (buttons[i][j].equals(v)) {
+					if(!state.getCells()[i][j].equals(Cell.NOTHING)){
+						//no move overridin
+						return;
+					}
 					state.setCell(i, j, player);
 					switch (player) {
 					case X:
