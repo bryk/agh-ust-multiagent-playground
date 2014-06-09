@@ -236,7 +236,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	private void initGameFromState(GameState state){
-		currentBoard = new Board(findViewById(R.id.board), agent, state);
+		currentBoard = new Board(findViewById(R.id.board), agent, state, this);
 	}
 	
 	public void boardClick(View v){

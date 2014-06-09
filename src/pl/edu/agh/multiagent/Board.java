@@ -2,7 +2,11 @@ package pl.edu.agh.multiagent;
 
 import pl.edu.agh.multiagent.api.Cell;
 import pl.edu.agh.multiagent.api.GameState;
+import pl.edu.agh.multiagent.api.State;
 import pl.edu.agh.multiagent.jade.GameAgentInterface;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,8 +21,9 @@ public class Board {
 	private GameState state;
 	private GameAgentInterface agent;
 	private Cell player;
+	private Context context;
 
-	public Board(View grid, GameAgentInterface agent, GameState state) {
+	public Board(View grid, GameAgentInterface agent, GameState state, Context context) {
 		buttons = new ImageButton[3][3];
 		this.agent = agent;
 		this.state = state;
@@ -49,8 +54,14 @@ public class Board {
 				}
 			}
 		}
+		
+		if(state.getState().equals(State.FINISHED)){
+			lost();
+		}
 
 	}
+
+	
 
 	private void loadButtons(View grid) {
 		TableLayout table = (TableLayout) grid;
@@ -84,6 +95,10 @@ public class Board {
 			Log.i(TAG, "Not your move 2");
 			return;
 		}
+		else if (state.getState() != null && state.getState().equals(State.FINISHED)){
+			Log.i(TAG,"Game finished already");
+			return;
+		}
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -104,12 +119,37 @@ public class Board {
 				}
 			}
 		}
-		if(checkVictory()){
-			//TODO What to do when the game ends? does something happen on winner moving, or on host?
-		}
+		
 		Log.i(TAG, "Move almost made");
 		// TODO that doesn't work, and it should somehow
-		// agent.updateGameState(state);
+		if(checkVictory()){
+			victory();
+		}
+		if(state.getOwner().equals(agent.getAgentInfo()))
+			agent.updateGameState(state);
+		else
+			agent.makeMove(state);
+		
+	}
+
+	private void victory() {
+		// TODO Auto-generated method stub
+		state.setState(State.FINISHED);
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setMessage("You have won that game!")
+		.setCancelable(false)
+		.setPositiveButton("Yay",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				// if this button is clicked, close
+				// current activity
+				dialog.dismiss();
+			}
+		  }).show();
+	}
+	
+	private void lost() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private boolean checkVictory() {
