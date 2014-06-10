@@ -1,6 +1,5 @@
 package pl.edu.agh.multiagent;
 
-import pl.edu.agh.multiagent.util.SystemUiHider;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class FullscreenActivity extends Activity implements OnClickListener {
-	private static final String TAG = "FullscreenActivity";
-	
 	View contentView;
 	View layout1;
 	View layout2;

@@ -30,5 +30,7 @@ public interface GameAgentInterface {
 	public abstract Collection<GameState> getAllActiveGames();
 	
 	public abstract Collection<GameState> getMyGames();
+	
+	public void setGameAgentListener(GameAgentListener gameAgentListener);
 
 }

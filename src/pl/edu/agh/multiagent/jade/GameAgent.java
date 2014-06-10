@@ -1,6 +1,7 @@
 package pl.edu.agh.multiagent.jade;
 
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.AMSService;
@@ -16,12 +17,15 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import pl.edu.agh.multiagent.api.AgentInfo;
 import pl.edu.agh.multiagent.api.AgentInfoMessage;
 import pl.edu.agh.multiagent.api.GameMoveMessage;
 import pl.edu.agh.multiagent.api.GameState;
 import pl.edu.agh.multiagent.api.GameStateAnnounceMessage;
+import pl.edu.agh.multiagent.api.State;
 import android.util.Log;
 
 /**
@@ -32,7 +36,6 @@ public class GameAgent extends Agent implements GameAgentInterface {
 	private static final long serialVersionUID = 1L;
 	private final AgentInfo agentInfo = AgentInfo.newAgent("Piotr");
 	private static final int STATE_EXPIRE_TIME = 5;
-	protected static final int REBROADCAST_TIME = 1;
 	private Map<String, AgentInfo> agents = new LinkedHashMap<String, AgentInfo>();
 	private Map<String, GameState> games = new LinkedHashMap<String, GameState>();
 	private Map<String, GameState> myGames = new LinkedHashMap<String, GameState>();
@@ -40,6 +43,9 @@ public class GameAgent extends Agent implements GameAgentInterface {
 	private Map<String, Long> gameTimestamps = new LinkedHashMap<String, Long>();
 	private CyclicBehaviour cyclic;
 	private GameAgentListener gameAgentListener;
+	private Queue<Serializable> bcastQueue = new ConcurrentLinkedQueue<Serializable>();
+	private Behaviour sender;
+	protected long lastTime = 0;
 
 	public GameAgent() {
 		registerO2AInterface(GameAgentInterface.class, this);
@@ -55,8 +61,8 @@ public class GameAgent extends Agent implements GameAgentInterface {
 			@Override
 			public void action() {
 				ACLMessage message = receive();
-				if (message != null) {
-					Log.d(tag, "New message:" + message);
+				if (message != null && message.hasByteSequenceContent()) {
+					Log.d(tag, "New message:" + message + "\nContent: " + message.getContent());
 					try {
 						Serializable obj = message.getContentObject();
 						processObjMessage(obj, System.currentTimeMillis());
@@ -81,18 +87,52 @@ public class GameAgent extends Agent implements GameAgentInterface {
 		});
 		cyclic = new CyclicBehaviour() {
 			private static final long serialVersionUID = 1L;
-			private long lastCyclic;
 
 			@Override
 			public void action() {
-				if (System.currentTimeMillis() - 10000 > lastCyclic) {
+				if (lastTime == 0 || lastTime - System.currentTimeMillis() > 500) {
+					lastTime = System.currentTimeMillis();
 					gc();
 					broadcastAllInfo();
-					lastCyclic = System.currentTimeMillis();
 				}
-				block(1000);
+				block(200);
 			}
 		};
+		sender = new CyclicBehaviour() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void action() {
+				Serializable msg;
+				while((msg = bcastQueue.poll()) != null) {
+					try {
+						Log.i(tag, "Broadcasting: " + msg);
+						AMSAgentDescription desc = new AMSAgentDescription();
+						SearchConstraints c = new SearchConstraints();
+						c.setMaxResults(Long.valueOf(-1));
+						AMSAgentDescription[] agents = AMSService.search(this.getAgent(), desc, c);
+						if (agents.length > 0) {
+							ACLMessage m = new ACLMessage(ACLMessage.INFORM);
+							for (AMSAgentDescription agentDescription : agents) {
+								m.addReceiver(agentDescription.getName());
+							}
+							m.setOntology("agents");
+							m.setContentObject(msg);
+							send(m);
+							Log.i(tag, "Num agents: " + agents.length + ", sent: " + m);
+						} else {
+							Log.i(tag, "No message sent. I am alone.");
+						}
+					} catch (FIPAException e) {
+						throw new RuntimeException(e);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				block(2000);
+			}
+		};
+		addBehaviour(sender);
 		addBehaviour(cyclic);
 		Log.i(tag, "Started game agent");
 	}
@@ -109,45 +149,23 @@ public class GameAgent extends Agent implements GameAgentInterface {
 
 	@Override
 	public synchronized void broadcast(Serializable msg) {
-		try {
-			AMSAgentDescription desc = new AMSAgentDescription();
-			SearchConstraints c = new SearchConstraints();
-			c.setMaxResults(Long.valueOf(-1));
-			AMSAgentDescription[] agents = AMSService.search(this, desc, c);
-			if (agents.length > 0) {
-				ACLMessage m = new ACLMessage(ACLMessage.INFORM);
-				for (AMSAgentDescription agentDescription : agents) {
-					m.addReceiver(agentDescription.getName());
-				}
-				m.setOntology("agents");
-				m.setContentObject(msg);
-				send(m);
-				Log.i(tag, "Num agents: " + agents.length + ", sent: " + m);
-			} else {
-				Log.i(tag, "No message sent. I am alone.");
-			}
-		} catch (FIPAException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		bcastQueue.add(msg);
+		if (sender != null) {
+			sender.restart();
 		}
 	}
 	
 	protected synchronized void processObjMessage(Serializable obj, long timestamp) {
 		if (obj instanceof GameStateAnnounceMessage) {
-			processGameState((GameStateAnnounceMessage) obj, timestamp);
+			GameStateAnnounceMessage announce = (GameStateAnnounceMessage) obj;
+			processGameState(announce, timestamp);
 			if (gameAgentListener != null) {
-				gameAgentListener.onGameStateAnnounce((GameStateAnnounceMessage) obj);
+				gameAgentListener.onGameState(announce.getGameState());
 			}
 		} else if (obj instanceof AgentInfoMessage) {
 			processAgentInfo((AgentInfoMessage) obj, timestamp);
-			if (gameAgentListener != null) {
-				gameAgentListener.onAgentInfoAnnounce((AgentInfoMessage) obj);
-			}
 		} else if (obj instanceof GameMoveMessage) {
-			if (gameAgentListener != null) {
-				gameAgentListener.onGameMove((GameMoveMessage) obj);
-			}
+			processGameMove((GameMoveMessage) obj);
 		} else {
 			throw new IllegalArgumentException("Cannot categorize message: " + obj);
 		}
@@ -165,14 +183,15 @@ public class GameAgent extends Agent implements GameAgentInterface {
 	public void createGame(GameState gameState) {
 		Log.d(tag, "Creating game: " + gameState);
 		myGames.put(gameState.getUuid(), gameState);
-		if (cyclic != null) {
-			cyclic.restart();
-		}
+		updateGameState(gameState);
 	}
 
 	@Override
 	public synchronized void updateGameState(GameState gameState) {
 		Log.d(tag, "Updating game: " + gameState);
+		if (myGames.containsKey(gameState.getUuid())) {
+			myGames.put(gameState.getUuid(), gameState);
+		}
 		GameStateAnnounceMessage msg = new GameStateAnnounceMessage();
 		msg.setGameState(gameState);
 		broadcast(msg);
@@ -213,6 +232,27 @@ public class GameAgent extends Agent implements GameAgentInterface {
 			this.agentTimestamps.put(obj.getAgentInfo().getUuid(), timestamp);
 		}
 	}
+	
+	private synchronized void processGameMove(GameMoveMessage move) {
+		Log.d(tag, "Processing game: " + move);
+		GameState newState = move.getNewState();
+		GameState myGame = myGames.get(newState.getUuid());
+		Log.d(tag, "Processing game, myGame: " + myGame);
+		if (myGame != null) {
+			if (myGame.getMoveNumber() + 1 == newState.getMoveNumber()) {
+				newState.setMoveNumber(newState.getMoveNumber());
+				Log.d(tag, "Processing game, accepted move");
+				updateGameState(newState);
+				if (gameAgentListener != null) {
+					gameAgentListener.onGameState(newState);
+				}
+			}
+		} else {
+			if (gameAgentListener != null) {
+				gameAgentListener.onGameState(newState);
+			}
+		}
+	}
 
 	private synchronized void processGameState(GameStateAnnounceMessage gameState, long timestamp) {
 		if (!myGames.containsKey(gameState.getGameState().getUuid())) {
@@ -251,7 +291,9 @@ public class GameAgent extends Agent implements GameAgentInterface {
 	protected synchronized void broadcastAllInfo() {
 		Log.i(tag, "broadcastAllInfo: " + myGames.size());
 		for (GameState gameState : myGames.values()) {
-			updateGameState(gameState);
+			if (gameState.getState() != State.FINISHED) {
+				updateGameState(gameState);
+			}
 		}
 	}
 

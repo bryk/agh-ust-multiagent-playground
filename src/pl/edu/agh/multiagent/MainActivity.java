@@ -1,11 +1,12 @@
 package pl.edu.agh.multiagent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jade.android.RuntimeCallback;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import pl.edu.agh.multiagent.api.GameState;
 import pl.edu.agh.multiagent.api.MoveResoultionStrategy;
 import pl.edu.agh.multiagent.api.State;
@@ -17,7 +18,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,7 +27,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -179,6 +178,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void addHeader(TableLayout table) {
 		TableRow row = new TableRow(this);
 		
@@ -236,7 +236,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	private void initGameFromState(GameState state){
-		currentBoard = new Board(findViewById(R.id.board), agent, state, this);
+		Board board = new Board(findViewById(R.id.board), agent, state, this, this);
+		agent.setGameAgentListener(board);
+		currentBoard = board;
 	}
 	
 	public void boardClick(View v){

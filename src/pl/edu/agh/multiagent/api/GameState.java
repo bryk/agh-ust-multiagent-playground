@@ -26,8 +26,8 @@ public class GameState implements Serializable {
 		gameState.moveResoultionStrategy = moveResoultionStrategy;
 		gameState.cells = new Cell[3][3];
 		gameState.state = State.OPEN;
-		for(int i=0;i<3;i++){
-			for(int j=0;j<3;j++){
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
 				gameState.cells[i][j] = Cell.NOTHING;
 			}
 		}
@@ -54,7 +54,8 @@ public class GameState implements Serializable {
 		return moveResoultionStrategy;
 	}
 
-	public void setMoveResoultionStrategy(MoveResoultionStrategy moveResoultionStrategy) {
+	public void setMoveResoultionStrategy(
+			MoveResoultionStrategy moveResoultionStrategy) {
 		this.moveResoultionStrategy = moveResoultionStrategy;
 	}
 
@@ -78,15 +79,41 @@ public class GameState implements Serializable {
 	public AgentInfo getOwner() {
 		return owner;
 	}
-	
+
 	public int getMoveNumber() {
 		return moveNumber;
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameState other = (GameState) obj;
+		if (uuid == null) {
+			if (other.uuid != null)
+				return false;
+		} else if (!uuid.equals(other.uuid))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
-		return "GameState [uuid=" + uuid + ", owner=" + owner + ", name=" + name
-				+ ", moveResoultionStrategy=" + moveResoultionStrategy + ", cells="
-				+ Arrays.toString(cells) + ", state=" + state + ", moveNumber=" + moveNumber + "]";
+		return "GameState [uuid=" + uuid + ", owner=" + owner + ", name="
+				+ name + ", moveResoultionStrategy=" + moveResoultionStrategy
+				+ ", cells=" + Arrays.toString(cells) + ", state=" + state
+				+ ", moveNumber=" + moveNumber + "]";
 	}
 }

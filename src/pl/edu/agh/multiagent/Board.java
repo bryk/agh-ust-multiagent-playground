@@ -4,6 +4,8 @@ import pl.edu.agh.multiagent.api.Cell;
 import pl.edu.agh.multiagent.api.GameState;
 import pl.edu.agh.multiagent.api.State;
 import pl.edu.agh.multiagent.jade.GameAgentInterface;
+import pl.edu.agh.multiagent.jade.GameAgentListener;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,27 +15,29 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-public class Board {
+public class Board implements GameAgentListener {
 
 	private static final String TAG = "Board";
 
 	private ImageButton[][] buttons;
 	private GameState state;
 	private GameAgentInterface agent;
-	private Cell player;
-	private Context context;
+	private Cell playersCellMarker;
+	private Activity activity;
+	private boolean alertShown = false;
 
-	public Board(View grid, GameAgentInterface agent, GameState state, Context context) {
+	public Board(View grid, GameAgentInterface agent, GameState state, Context context, Activity activity) {
 		buttons = new ImageButton[3][3];
 		this.agent = agent;
 		this.state = state;
 		if (state.getOwner().equals(agent.getAgentInfo())) {
-			player = Cell.X;
+			playersCellMarker = Cell.X;
 		} else {
-			player = Cell.O;
+			playersCellMarker = Cell.O;
 		}
 		loadButtons(grid);
 		init();
+		this.activity = activity;
 	}
 
 	private void init() {
@@ -54,11 +58,6 @@ public class Board {
 				}
 			}
 		}
-		
-		if(state.getState().equals(State.FINISHED)){
-			lost();
-		}
-
 	}
 
 	
@@ -99,57 +98,91 @@ public class Board {
 			Log.i(TAG,"Game finished already");
 			return;
 		}
-
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (buttons[i][j].equals(v)) {
-					if(!state.getCells()[i][j].equals(Cell.NOTHING)){
-						//no move overridin
-						return;
-					}
-					state.setCell(i, j, player);
-					switch (player) {
-					case X:
-						((ImageButton) v).setImageResource(R.drawable.x);
-						break;
-					case O:
-						((ImageButton) v).setImageResource(R.drawable.o);
-						break;
+		
+		if (state.getState() != State.FINISHED) {
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (buttons[i][j].equals(v)) {
+						if(!state.getCells()[i][j].equals(Cell.NOTHING)){
+							//no move overridin
+							return;
+						}
+						state.setCell(i, j, playersCellMarker);
+						switch (playersCellMarker) {
+						case X:
+							((ImageButton) v).setImageResource(R.drawable.x);
+							break;
+						case O:
+							((ImageButton) v).setImageResource(R.drawable.o);
+							break;
+						default:
+							throw new RuntimeException("Invalid player's cell");
+						}
 					}
 				}
 			}
 		}
 		
-		Log.i(TAG, "Move almost made");
-		// TODO that doesn't work, and it should somehow
-		if(checkVictory()){
-			victory();
-		}
-		if(state.getOwner().equals(agent.getAgentInfo()))
-			agent.updateGameState(state);
-		else
-			agent.makeMove(state);
+		handleLostWon();
 		
+		if(state.getOwner().equals(agent.getAgentInfo())) {
+			agent.updateGameState(state);
+		} else {
+			agent.makeMove(state);
+		}
+	}
+
+	private void handleLostWon() {
+		if(state.getState() == State.FINISHED || checkVictory()) {
+			state.setState(State.FINISHED);
+			if (!alertShown) {
+				this.alertShown = true;
+				this.activity.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if(state.getOwner().equals(agent.getAgentInfo())) {
+							if (state.getMoveNumber() % 2 != 0) {
+								victory();
+							} else {
+								lost();
+							}
+						} else {
+							if (state.getMoveNumber() % 2 == 0) {
+								victory();
+							} else {
+								lost();
+							}
+						}
+					}
+				});
+			}
+		}
 	}
 
 	private void victory() {
-		// TODO Auto-generated method stub
-		state.setState(State.FINISHED);
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setMessage("You have won that game!")
-		.setCancelable(false)
-		.setPositiveButton("Yay",new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog,int id) {
-				// if this button is clicked, close
-				// current activity
-				dialog.dismiss();
-			}
-		  }).show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setMessage("You have won the game")
+			.setCancelable(false)
+			.setPositiveButton("Yay!", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// if this button is clicked, close
+					// current activity
+					dialog.dismiss();
+				}
+			  }).show();
 	}
 	
 	private void lost() {
-		// TODO Auto-generated method stub
-		
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setMessage("You have lost the game")
+			.setCancelable(false)
+			.setNegativeButton("Oh no!", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// if this button is clicked, close
+					// current activity
+					dialog.dismiss();
+				}
+			  }).show();
 	}
 
 	private boolean checkVictory() {
@@ -161,7 +194,7 @@ public class Board {
 		for (int y = 0; y < 3; y++) {
 			int total = 0;
 			for (int x = 0; x < 3; x++) {
-				if (state.getCells()[x][y] == player) {
+				if (state.getCells()[x][y] == playersCellMarker) {
 					total++;
 				}
 			}
@@ -176,7 +209,7 @@ public class Board {
 		for (int x = 0; x < 3; x++) {
 			int total = 0;
 			for (int y = 0; y < 3; y++) {
-				if (state.getCells()[x][y] == player) {
+				if (state.getCells()[x][y] == playersCellMarker) {
 					total++;
 				}
 			}
@@ -191,10 +224,10 @@ public class Board {
 		int right = 0;
 		int left = 0;
 		for (int i = 0; i < 3; i++) {
-			if (state.getCells()[i][i].equals(player)) {
+			if (state.getCells()[i][i].equals(playersCellMarker)) {
 				right++;
 			}
-			if (state.getCells()[2 - i][i].equals(player)) {
+			if (state.getCells()[2 - i][i].equals(playersCellMarker)) {
 				left++;
 			}
 		}
@@ -202,4 +235,19 @@ public class Board {
 
 	}
 
+	@Override
+	public void onGameState(GameState state) {
+		Log.i(TAG, "Move accepted");
+		if (this.state.getUuid().equals(state.getUuid())) {
+			Log.i(TAG, "Move accepted, repainting");
+			this.state = state;
+			this.activity.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					init();
+				}
+			});
+			handleLostWon();
+		}
+	}
 }
