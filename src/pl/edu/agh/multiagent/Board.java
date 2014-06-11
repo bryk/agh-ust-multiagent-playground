@@ -26,7 +26,8 @@ public class Board implements GameAgentListener {
 	private Activity activity;
 	private boolean alertShown = false;
 
-	public Board(View grid, GameAgentInterface agent, GameState state, Context context, Activity activity) {
+	public Board(View grid, GameAgentInterface agent, GameState state,
+			Context context, Activity activity) {
 		buttons = new ImageButton[3][3];
 		this.agent = agent;
 		this.state = state;
@@ -60,8 +61,6 @@ public class Board implements GameAgentListener {
 		}
 	}
 
-	
-
 	private void loadButtons(View grid) {
 		TableLayout table = (TableLayout) grid;
 		buttons[0][0] = (ImageButton) ((TableRow) table.getChildAt(0))
@@ -90,21 +89,22 @@ public class Board implements GameAgentListener {
 				&& state.getMoveNumber() % 2 == 1) {
 			Log.i(TAG, "Not your move 1");
 			return;
-		} else if (!state.getOwner().equals(agent.getAgentInfo()) && state.getMoveNumber() % 2 == 0) {
+		} else if (!state.getOwner().equals(agent.getAgentInfo())
+				&& state.getMoveNumber() % 2 == 0) {
 			Log.i(TAG, "Not your move 2");
 			return;
-		}
-		else if (state.getState() != null && state.getState().equals(State.FINISHED)){
-			Log.i(TAG,"Game finished already");
+		} else if (state.getState() != null
+				&& state.getState().equals(State.FINISHED)) {
+			Log.i(TAG, "Game finished already");
 			return;
 		}
-		
+
 		if (state.getState() != State.FINISHED) {
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					if (buttons[i][j].equals(v)) {
-						if(!state.getCells()[i][j].equals(Cell.NOTHING)){
-							//no move overridin
+						if (!state.getCells()[i][j].equals(Cell.NOTHING)) {
+							// no move overridin
 							return;
 						}
 						state.setCell(i, j, playersCellMarker);
@@ -122,25 +122,58 @@ public class Board implements GameAgentListener {
 				}
 			}
 		}
-		
 		handleLostWon();
-		
-		if(state.getOwner().equals(agent.getAgentInfo())) {
+
+		if (state.getOwner().equals(agent.getAgentInfo())) {
 			agent.updateGameState(state);
 		} else {
 			agent.makeMove(state);
 		}
+
+		if (state.getMoveNumber() == 9) {
+			handleEndGame();
+		}
+	}
+
+	private void handleEndGame() {
+		if (state.getState() != State.FINISHED) {
+			state.setState(State.FINISHED);
+		}
+		if (!alertShown) {
+				this.alertShown = true;
+				this.activity.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+								activity);
+						builder.setMessage("Game ended without a winner")
+								.setCancelable(false)
+								.setPositiveButton("Ok",
+										new DialogInterface.OnClickListener() {
+											public void onClick(
+													DialogInterface dialog,
+													int id) {
+												// if this button is clicked,
+												// close
+												// current activity
+												dialog.dismiss();
+											}
+										}).show();
+					}
+				});
+			}
+
 	}
 
 	private void handleLostWon() {
-		if(state.getState() == State.FINISHED || checkVictory()) {
+		if (checkVictory(Cell.X) || checkVictory(Cell.O)) {
 			state.setState(State.FINISHED);
 			if (!alertShown) {
 				this.alertShown = true;
 				this.activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						if(state.getOwner().equals(agent.getAgentInfo())) {
+						if (state.getOwner().equals(agent.getAgentInfo())) {
 							if (state.getMoveNumber() % 2 != 0) {
 								victory();
 							} else {
@@ -162,39 +195,44 @@ public class Board implements GameAgentListener {
 	private void victory() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setMessage("You have won the game")
-			.setCancelable(false)
-			.setPositiveButton("Yay!", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// if this button is clicked, close
-					// current activity
-					dialog.dismiss();
-				}
-			  }).show();
+				.setCancelable(false)
+				.setPositiveButton("Yay!",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// if this button is clicked, close
+								// current activity
+								dialog.dismiss();
+							}
+						}).show();
 	}
-	
+
 	private void lost() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setMessage("You have lost the game")
-			.setCancelable(false)
-			.setNegativeButton("Oh no!", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// if this button is clicked, close
-					// current activity
-					dialog.dismiss();
-				}
-			  }).show();
+				.setCancelable(false)
+				.setNegativeButton("Oh no!",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// if this button is clicked, close
+								// current activity
+								dialog.dismiss();
+							}
+						}).show();
 	}
 
 	private boolean checkVictory() {
-		return checkCross() || checkColumns() || checkRows();
-
+		return checkCross(playersCellMarker) || checkColumns(playersCellMarker) || checkRows(playersCellMarker);
+	}
+	
+	private boolean checkVictory(Cell c) {
+		return checkCross(c) || checkColumns(c) || checkRows(c);
 	}
 
-	private boolean checkRows() {
+	private boolean checkRows(Cell c) {
 		for (int y = 0; y < 3; y++) {
 			int total = 0;
 			for (int x = 0; x < 3; x++) {
-				if (state.getCells()[x][y] == playersCellMarker) {
+				if (state.getCells()[x][y] == c) {
 					total++;
 				}
 			}
@@ -205,11 +243,11 @@ public class Board implements GameAgentListener {
 		return false;
 	}
 
-	private boolean checkColumns() {
+	private boolean checkColumns(Cell c) {
 		for (int x = 0; x < 3; x++) {
 			int total = 0;
 			for (int y = 0; y < 3; y++) {
-				if (state.getCells()[x][y] == playersCellMarker) {
+				if (state.getCells()[x][y] == c) {
 					total++;
 				}
 			}
@@ -220,14 +258,14 @@ public class Board implements GameAgentListener {
 		return false;
 	}
 
-	private boolean checkCross() {
+	private boolean checkCross(Cell c) {
 		int right = 0;
 		int left = 0;
 		for (int i = 0; i < 3; i++) {
-			if (state.getCells()[i][i].equals(playersCellMarker)) {
+			if (state.getCells()[i][i].equals(c)) {
 				right++;
 			}
-			if (state.getCells()[2 - i][i].equals(playersCellMarker)) {
+			if (state.getCells()[2 - i][i].equals(c)) {
 				left++;
 			}
 		}
@@ -248,6 +286,9 @@ public class Board implements GameAgentListener {
 				}
 			});
 			handleLostWon();
+			if (state.getMoveNumber() == 9) {
+				handleEndGame();
+			}
 		}
 	}
 }

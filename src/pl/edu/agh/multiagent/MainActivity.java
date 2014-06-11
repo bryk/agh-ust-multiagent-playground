@@ -68,6 +68,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		Intent i = getIntent();
 		jadeController = new JadeController(i.getStringExtra("host"),
 				i.getStringExtra("port"), getApplicationContext());
+		final TextView agentName = (TextView) findViewById(R.id.agentTitle);
+		
 		jadeController.startJadeRuntimeService(new RuntimeCallback<Void>() {
 			@Override
 			public void onSuccess(Void arg0) {
@@ -82,6 +84,13 @@ public class MainActivity extends Activity implements OnClickListener {
 											.getO2AInterface(GameAgentInterface.class);
 									if (agent != null) {
 										MainActivity.this.agent = agent;
+										runOnUiThread(new Runnable() {
+											
+											@Override
+											public void run() {
+												agentName.setText(MainActivity.this.agent.getAgentInfo().getName());
+											}
+										});
 									} else {
 										Log.i(TAG, "Agent O2A is null");
 									}
@@ -102,6 +111,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				Log.w(TAG, "Failed to start Jade");
 			}
 		});
+		
+		
 	}
 
 	@Override

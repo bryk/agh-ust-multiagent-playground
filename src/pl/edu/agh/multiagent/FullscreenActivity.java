@@ -10,8 +10,6 @@ import android.widget.EditText;
 
 public class FullscreenActivity extends Activity implements OnClickListener {
 	View contentView;
-	View layout1;
-	View layout2;
 	
 	
 	@Override
@@ -21,10 +19,6 @@ public class FullscreenActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_fullscreen);
 		
 		contentView = findViewById(R.id.mainFormLayout);
-		layout1 = findViewById(R.id.linear1);
-		layout2 = findViewById(R.id.linear2);
-
-		
 
 		Button button = (Button) contentView.findViewById(R.id.confirmParamsButton);
 		button.setOnClickListener(this);

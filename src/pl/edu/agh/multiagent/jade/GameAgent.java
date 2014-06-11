@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import pl.edu.agh.multiagent.api.AgentInfo;
@@ -34,7 +35,7 @@ import android.util.Log;
 public class GameAgent extends Agent implements GameAgentInterface {
 	private String tag = "GameAgent";
 	private static final long serialVersionUID = 1L;
-	private final AgentInfo agentInfo = AgentInfo.newAgent("Piotr");
+	private final AgentInfo agentInfo;
 	private static final int STATE_EXPIRE_TIME = 5;
 	private Map<String, AgentInfo> agents = new LinkedHashMap<String, AgentInfo>();
 	private Map<String, GameState> games = new LinkedHashMap<String, GameState>();
@@ -49,6 +50,8 @@ public class GameAgent extends Agent implements GameAgentInterface {
 
 	public GameAgent() {
 		registerO2AInterface(GameAgentInterface.class, this);
+		Random r = new Random();
+		agentInfo = AgentInfo.newAgent("Gamer " + r.nextInt(10000));
 	}
 
 	@Override
